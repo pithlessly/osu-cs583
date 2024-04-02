@@ -49,3 +49,7 @@ eq3 :: IntSet -> IntSet -> Bool
 eq3 ESet       ESet      = True
 eq3 ESet       (Ins _ _) = False
 eq3 (Ins n s') t         = member n t && eq3 (remove n s') (remove n t)
+
+instance Ord Time where
+  compare = compare `on` secs
+  -- (<=) = (<=) `on` secs
