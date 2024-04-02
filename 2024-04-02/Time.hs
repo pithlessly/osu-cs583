@@ -53,3 +53,11 @@ eq3 (Ins n s') t         = member n t && eq3 (remove n s') (remove n t)
 instance Ord Time where
   compare = compare `on` secs
   -- (<=) = (<=) `on` secs
+
+{-
+instance Ord IntSet where
+  -- BAD: only works for finite sets
+  compare = compare `on` toList -- only works for finite sets
+  -- BAD: doesn't define a total order, only a partial order
+  (<=) = subset
+-}
