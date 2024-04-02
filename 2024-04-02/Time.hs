@@ -36,3 +36,16 @@ subset (Ins n s) s' = member n s' && subset s s'
 
 instance Eq IntSet where
   s1 == s2 = subset s1 s2 && subset s2 s1
+
+-- challenge:
+-- is there another elegant implementation that doesn't involve
+-- using `subset` and `member`, and doesn't create auxiliary data strcutures?
+
+remove :: Int -> IntSet -> IntSet
+remove n ESet = ESet
+remove n (Ins m s) = if n == m then s' else Ins m s' where s' = remove n s'
+
+eq3 :: IntSet -> IntSet -> Bool
+eq3 ESet       ESet      = True
+eq3 ESet       (Ins _ _) = False
+eq3 (Ins n s') t         = member n t && eq3 (remove n s') (remove n t)
