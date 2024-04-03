@@ -35,3 +35,20 @@ satExamples =
 -- type In = Formula
 -- type Out = Maybe [(Var, Bool)]
 -- classProject = satisfiable
+
+data Rrb a = Rrb {- abstract -}
+data RrbAPI a = RrbAPI {
+    _empty :: Rrb a,
+    _singleton :: a -> Rrb a,
+    _fromList :: [a] -> Rrb a,
+    _cons :: a -> Rrb a -> Rrb a,
+    _snoc :: Rrb a -> a -> Rrb a,
+    _concat :: Rrb a -> Rrb a -> Rrb a,
+    _index :: Int -> Rrb a -> a,
+    _length :: Rrb a -> Int,
+    _traverse :: forall f b. Applicative f => (a -> f b) -> Rrb a -> f (Rrb b)
+  }
+
+-- type In = ()
+-- type Out = forall a. RrbAPI a
+-- classProject () = RrbAPI { {- TODO -} }
