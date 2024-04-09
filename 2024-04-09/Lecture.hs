@@ -18,3 +18,11 @@ newtype BiCompose f g a b = BiCompose (f (g a b))
 
 instance (Functor f, BiFunctor g) => BiFunctor (BiCompose f g) where
     bmap f g (BiCompose x) = BiCompose (fmap (bmap f g) x)
+
+data Graph a b = G [a] [(Int, Int, b)]
+
+instance BiFunctor Graph where
+    bmap f g (G nodes edges) = G (map f nodes) (map (\(n1, n2, edge) -> (n1, n2, g edge)) edges)
+
+-- mapL: map nodes
+-- mapR: map values
