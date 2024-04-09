@@ -5,3 +5,11 @@ class BiFunctor f where
 
 instance BiFunctor (,) where
     bmap f g (x, y) = (f x, g y)
+
+mapL  :: BiFunctor f => (a -> c) -> f a b -> f c b
+mapR  :: BiFunctor f => (b -> c) -> f a b -> f a c
+mapLR :: BiFunctor f => (a -> b) -> f a a -> f b b
+
+mapL  f = bmap f id
+mapR  f = bmap id f
+mapLR f = bmap f f
