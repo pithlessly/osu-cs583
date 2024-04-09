@@ -13,3 +13,8 @@ mapLR :: BiFunctor f => (a -> b) -> f a a -> f b b
 mapL  f = bmap f id
 mapR  f = bmap id f
 mapLR f = bmap f f
+
+newtype BiCompose f g a b = BiCompose (f (g a b))
+
+instance (Functor f, BiFunctor g) => BiFunctor (BiCompose f g) where
+    bmap f g (BiCompose x) = BiCompose (fmap (bmap f g) x)
